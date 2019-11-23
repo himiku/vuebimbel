@@ -66,8 +66,8 @@ export default {
     created(){
         db.ref('listbanksoal').once('value', snapshot=>{
             this.datalistbanksoal = snapshot.val()
-            console.log(snapshot.toJSON)
-            console.log(this.datalistbanksoal)
+            // console.log(snapshot.toJSON)
+            // console.log(this.datalistbanksoal)
         })
         
     }

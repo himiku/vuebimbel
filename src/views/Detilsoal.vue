@@ -66,10 +66,10 @@ export default {
             db.ref('banksoal/'+this.$route.params.id+'/soalnye').once('value',snapshot=>{
                 let okesip =snapshot.val()
                 this.soalnya = okesip
-                console.log(snapshot.val())
-                console.log(this.soalnya.length)
+                // console.log(snapshot.val())
+                // console.log(this.soalnya.length)
             })
-        console.log(this.soalnya)
+        // console.log(this.soalnya)
         },
         decodeFrom(data){
             let oke = atob(data)
