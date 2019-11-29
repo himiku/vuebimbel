@@ -31,8 +31,8 @@
                                 <input type="text" required name="jawaband" id="" class="form-control" v-model="formdatanew.jawaban.D">
                             </div>
                             <div class="form-group">
-                                <label for="jawabanbenar">Jawaban Benar:   _</label>
-                                <select name="jawabanbenar" required v-model="formdatanew.jawabanbenar">
+                                <label for="jawabanbenar">Jawaban Benar:   </label>
+                                <select name="jawabanbenar" required v-model="formdatanew.jawabanbenar" class="form-control">
                                     <option value="A">A</option>
                                     <option value="B">B</option>
                                     <option value="C">C</option>
@@ -52,7 +52,30 @@
             </div>
 
             <div class="col-4">
-                <h2>preview</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>preview</h2>
+                    </div>
+                    <div class="card-body">
+                        <vue-mathjax :formula="formdatanew.pertanyaan" :safe="false"></vue-mathjax> <br/><br/>
+                        <div class="row">
+                            A. <vue-mathjax :formula="formdatanew.jawaban.A" :safe="false"></vue-mathjax>
+                        </div>
+                        <div class="row">
+                            B. <vue-mathjax :formula="formdatanew.jawaban.B" :safe="false"></vue-mathjax>
+                        </div>
+                        <div class="row">
+                            C. <vue-mathjax :formula="formdatanew.jawaban.C" :safe="false"></vue-mathjax>
+                        </div>
+                        <div class="row">
+                            D. <vue-mathjax :formula="formdatanew.jawaban.D" :safe="false"></vue-mathjax>
+                        </div> <br/>
+                        <p>Jawaban Benar: {{formdatanew.jawabanbenar}}</p> <br/>
+                        
+                            Pembahasan: <vue-mathjax :formula="formdatanew.pembahasan" :safe="false"></vue-mathjax>
+                        
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -63,8 +86,9 @@
         <div class="row">
             <div class="col-8">
                 <div class="card">
-                    <div class="card-header">
-                        <h1>Edit soal No. {{no}}</h1>
+                    <div class="row card-header">
+                        <h1 class="col-8">Edit soal No. {{no}}</h1>
+
                     </div>
                     <div class="card-body">
                         <form v-on:submit.prevent="editsoalno">
@@ -89,8 +113,8 @@
                                 <input type="text" required name="jawaband" id="" class="form-control" v-model="formdata.jawaban.D">
                             </div>
                             <div class="form-group">
-                                <label for="jawabanbenar">Jawaban Benar:   _</label>
-                                <select name="jawabanbenar" required v-model="formdata.jawabanbenar">
+                                <label for="jawabanbenar">Jawaban Benar:   </label>
+                                <select name="jawabanbenar" required v-model="formdata.jawabanbenar" class="form-control">
                                     <option value="A">A</option>
                                     <option value="B">B</option>
                                     <option value="C">C</option>
@@ -110,7 +134,30 @@
             </div>
 
             <div class="col-4">
-                <h2>preview</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>preview</h2>
+                    </div>
+                    <div class="card-body">
+                        <vue-mathjax :formula="formdata.pertanyaan" :safe="false"></vue-mathjax> <br/><br/>
+                        <div class="row">
+                            A.&nbsp; <vue-mathjax :formula="formdata.jawaban.A" :safe="false"></vue-mathjax>
+                        </div>
+                        <div class="row">
+                            B. <vue-mathjax :formula="formdata.jawaban.B" :safe="false"></vue-mathjax>
+                        </div>
+                        <div class="row">
+                            C. <vue-mathjax :formula="formdata.jawaban.C" :safe="false"></vue-mathjax>
+                        </div>
+                        <div class="row">
+                            D. <vue-mathjax :formula="formdata.jawaban.D" :safe="false"></vue-mathjax>
+                        </div> <br/>
+                        <p>Jawaban Benar {{formdata.jawabanbenar}}</p> <br/>
+                        
+                            Pembahasan: <vue-mathjax :formula="formdata.pembahasan" :safe="false"></vue-mathjax>
+                        
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -178,7 +225,8 @@ export default {
                 pembahasan:btoa(this.formdata.pembahasan)
 
             }).then(()=>{
-                this.$router.push({name:'Detilsoal', params:{id:this.id}})
+                this.$router.go(-1)
+                // this.$router.push({name:'Detilsoal', params:{id:this.id}})
             })
         },
         editsoalnonew(){
@@ -194,9 +242,19 @@ export default {
                 pembahasan:btoa(this.formdatanew.pembahasan)
 
             }).then(()=>{
-                this.$router.push({name:'Detilsoal', params:{id:this.id}})
+                this.$router.go(-1)
+                //this.$router.push({name:'Detilsoal', params:{id:this.id}})
             })
-        }
+        },
+        deletesoalno(dialog){
+            db.ref('banksoal/'+this.id+'/soalnye/'+this.no).remove().then(()=>{
+                dialog.loaging(false)
+                dialog.close()
+                this.$router.go(-1)
+            })
+        },
+        doNothing(){}
+
     }
 }
 </script>

@@ -11,10 +11,10 @@
         
     </div>
     </div>
-    
+    <br/>
 
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-striped table-bordered table-hover ">
+        <thead class="thead-dark">
             <tr>
                 <th>Titel</th>
                 <th>Jenis</th>
@@ -25,7 +25,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody v-if="datalistbanksoal!==null">
             <tr v-for="item of datalistbanksoal" :key="item['.key']">
                 <td>{{item.titel}}</td>
                 <td>{{item.jenis}}</td>
@@ -33,7 +33,7 @@
                 <td>{{item.kelas}}</td>
                 <td>{{item.mapel}}</td>
                 <td v-if="item.published">
-                    <div class="badge badge-primary text-wrap" style="width: 6rem;">
+                    <div class="badge badge-success text-wrap" style="width: 6rem;">
                         sudah publish
                     </div>
                 </td>
@@ -43,7 +43,10 @@
                     </div>
                 </td>
                 <td>
-                    <router-link :to="{name: 'Detilsoal',params:{id:item.idsoal}}" class="btn btn-warning">Edit</router-link>
+                    <router-link :to="{name: 'Detilsoal',params:{id:item.idsoal}}" class="btn btn-warning">Edit</router-link> |
+                    <!-- <button type="button" class="btn btn-danger" @click="showdialog">
+                        Delete
+                    </button>                     -->
                 </td>
             </tr>
         </tbody>
@@ -64,12 +67,19 @@ export default {
         }
     },
     created(){
-        db.ref('listbanksoal').once('value', snapshot=>{
+        db.ref('listbanksoal').orderByChild('kelas').once('value', snapshot=>{
             this.datalistbanksoal = snapshot.val()
             // console.log(snapshot.toJSON)
-            // console.log(this.datalistbanksoal)
+             console.log(this.datalistbanksoal)
         })
         
+    },
+    methods:{
+        showdialog(){
+            this.$dialog.alert('Request completed!').then(function() {
+            console.log('Closed');
+        });
+        }   
     }
 }
 </script>

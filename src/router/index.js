@@ -37,6 +37,26 @@ const routes = [
     path:'/buat-paket-soal',
     name:'Buatsoal',
     component:() => import('../views/Buatsoal.vue')
+  },
+  {
+    path:'/list-materi',
+    name:'Listmateri',
+    component:() => import('../views/Listmateri.vue')
+  },
+  {
+    path:'/edit-materi/:tingkat/:mapel/:id',
+    name:'Editmateri',
+    component:() => import('../views/Editmateri.vue')
+  },
+  {
+    path:'/edit-materi',
+    name:'Buatmateri',
+    component:() => import('../views/Editmateri.vue')
+  },
+  {
+    path:'/list-user',
+    name:'Listuser',
+    component:() => import('../views/Listuser.vue')
   }
 ]
 
